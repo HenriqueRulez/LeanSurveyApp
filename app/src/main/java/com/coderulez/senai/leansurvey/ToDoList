@@ -1,0 +1,43 @@
+Fluxo o App
+
+Tela Cadastro
+
+Tela de login
+	email
+	senha
+	btn login
+	btn cadastro
+
+
+Tela Principal
+	Lista de Questionarios que podem ser feitos
+	listView
+
+SplashScreen
+	Determinar se o usuário está logado ou não
+		se estiver logado ir para a tela prinicipal
+		senao tela de login
+	como determinar se o usuãrio esta logado?:
+		quando voce loga voce recebe uma token que tem que ser usada nas requisicoes
+		se voce nao tiver a token voce nao esta logado
+		tentar acessar alguma url do webservice que precise de autenticacao
+		se falhar voce nao esta logado
+	token -> localstore
+
+
+Tela de perfil
+	Banner da leansurvey no topo
+	Email
+	Quantidade de questionarios respondidos
+	Dinheiro que pode retirar
+
+Tela de resposta do questionario
+
+ListView
+	Lista view pergunta sempre tudo para um cara chamado adapter
+	BaseAdapter -> ArrayAdapter -> StringAdapter
+
+
+restUtil
+
+Acessar o site - trazer as infos - entregar objetos para activities

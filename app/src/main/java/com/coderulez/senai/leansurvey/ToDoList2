@@ -1,0 +1,29 @@
+Layout
+
+    xml da multipla escolha (list view para as multiplas escolhas)
+    xml da escolha unica (list view para a escolha unica)
+    xml da linha da multipla escolha (linha da tabela com checkbox)
+    xml da linha da escolha unica (linha da tabela com radioButton)
+    tirar o botao da cardview
+
+
+
+Activity
+    Criar uma activity para cada tipo de questao
+        voce vai ter que manter um datasource com todas as questoes ja respondidas, esse cara ele tem que ser acesssivel de todas aS ACTIVIIES
+        toda vez que voce aceitar uma resposta voce vai pegar todas as respostas enviar pro backend e esperar a nova pergunta
+        escolher qual a activity da proxima pergunta e criar ela
+
+
+
+
+        Criar um XML para cada:
+            * Check box
+            * Radio Button
+
+
+
+Hints
+   Método para desmarcar todos os Radio Button (deactivate)
+   Um Adapter, não fazer um adapter para cada
+
