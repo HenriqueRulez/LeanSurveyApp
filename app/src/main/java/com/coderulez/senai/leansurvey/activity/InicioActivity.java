@@ -2,142 +2,121 @@ package com.coderulez.senai.leansurvey.activity;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.coderulez.senai.leansurvey.adapter.AdapterInterviewer;
-import com.coderulez.senai.leansurvey.adapter.AdapterNocao;
-import com.coderulez.senai.leansurvey.adapter.AdapterQuestionnaire;
-import com.coderulez.senai.leansurvey.model.Model;
+import com.coderulez.senai.leansurvey.activity.dummy.DummyContent;
+import com.coderulez.senai.leansurvey.fragments.ErrorFragment;
+import com.coderulez.senai.leansurvey.fragments.QuestionairesFragment;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
-import com.coderulez.senai.leansurvey.model.Interviewer;
 import com.coderulez.senai.leansurvey.R;
-import com.coderulez.senai.leansurvey.util.JsonUtil;
 import com.coderulez.senai.leansurvey.util.QuestionnaireRest;
 
-import java.util.ArrayList;
+
 import java.util.List;
+import android.app.Fragment;
+import android.app.FragmentManager;
 
 
-public class InicioActivity extends BaseActivity {
+public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuestionairesFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener{
 
-    ListView myListView;
-    AdapterNocao adapterNocao;
-    AdapterQuestionnaire adapterQuestionnaire;
-    private List<Questionnaire> questionnaireList;
+    FrameLayout content;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_navigation_drawer);
 
-        FrameLayout contentFrameLayout = (FrameLayout) findViewById(R.id.content_frame);
-        getLayoutInflater().inflate(R.layout.activity_inicio, contentFrameLayout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        myListView = (ListView) findViewById(R.id.myListView);
-
-        List<Model> dataSource = new ArrayList<Model>();
-        dataSource.add(new Model("Questionário TIM"));
-        dataSource.add(new Model("Futebol é sua paixão?"));
-        dataSource.add(new Model("Questionario do 321"));
-        dataSource.add(new Model("Quem quer SENAI novamente?"));
-        dataSource.add(new Model("Questionário FIAT"));
-        dataSource.add(new Model("Questionario BBB21"));
-
-
-
-
-
-        adapterNocao = new AdapterNocao(dataSource, this);
-
-        myListView.setAdapter(adapterNocao);
-
-
-
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_closed);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        content = (FrameLayout) findViewById(R.id.content_frame);
+
+        QuestionairesFragment fragment = new QuestionairesFragment();
+
+        this.ShowFragment(fragment);
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+        Fragment fragment;
+        switch (item.getItemId()) {
+            case R.id.nav_questionario:
 
-        try {
-            new BuscaListaQuestionarioTask().execute();
-        }catch (Exception erro){
-            Toast.makeText(InicioActivity.this, "Deu algum error ( endereço da API )", Toast.LENGTH_SHORT);
-        }
-
-    }
-
-    private class BuscaListaQuestionarioTask extends AsyncTask<Void, Void, List<Questionnaire>>{
-
-        private String erro;
-
-        @Override
-        protected List<Questionnaire> doInBackground(Void... params) {
-            try {
-                return questionnaireList = QuestionnaireRest.listar(InicioActivity.this);
-            }catch (Exception e){
-                Log.e("GLAUBER", e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
-
-
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        //Infla o menu com os botões da action bar
-
-        getMenuInflater().inflate(R.menu.menu_inicio, menu);
-
-        return true;
-
-    }*/
-
-
-
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-
-        switch(item.getItemId()){
-            case R.id.idMenuOpcoes:
-
-                Intent intentOp = new Intent(this, OpcoesActivity.class);
-                startActivity(intentOp);
-
-                return true;
-
-            case R.id.idMenuAjuda:
-
-                Intent intentAj = new Intent(this, AjudaActivity.class);
-
-                startActivity(intentAj);
-
-                return true;
-
-            case R.id.idMenuSair:
-
-                System.exit(0);
-
-                return true;
-
+                fragment = new QuestionairesFragment();
+                break;
+            case R.id.nav_listaresposta:
+                fragment = new ErrorFragment();
+                break;
+            case R.id.nav_config:
+                fragment = new ErrorFragment();
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                fragment = new ErrorFragment();
+                break;
         }
-  }*/
+        SetActive(item.getItemId());
+        this.ShowFragment(fragment);
+        drawerLayout.closeDrawers();
 
+        return false;
+    }
+
+    private void SetActive(int id)
+    {
+        //TODO DEIXAR APENAS SELECIONADO O DO ID QUE AGENTE MANDOU
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        actionBarDrawerToggle.syncState();
+    }
+
+    private void ShowFragment(Fragment fragment)
+    {
+        this.getFragmentManager()
+            .beginTransaction()
+            .replace(R.id.content_frame, fragment)
+            .commit();
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item)
+    {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
