@@ -3,8 +3,6 @@ package com.coderulez.senai.leansurvey.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +13,9 @@ import com.coderulez.senai.leansurvey.activity.dummy.DummyContent.DummyItem;
 import com.coderulez.senai.leansurvey.adapter.AdapterQuestionnaire;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
 import com.coderulez.senai.leansurvey.model.Repository.ICallback;
-import com.coderulez.senai.leansurvey.model.Repository.QuestionnairRepository;
+import com.coderulez.senai.leansurvey.model.Repository.QuestionnaireRepository;
 
-import android.*;
 import android.widget.Toast;
-
-import okhttp3.internal.framed.FrameReader;
 
 /**
  * A fragment representing a list of Items.
@@ -99,7 +94,7 @@ public class QuestionairesFragment extends Fragment {
 
         final Fragment that = this;
 
-        QuestionnairRepository.List(new ICallback<Questionnaire[]>()
+        QuestionnaireRepository.List(new ICallback<Questionnaire[]>()
         {
             @Override
             public void Callback(final Questionnaire[] back, final String error)

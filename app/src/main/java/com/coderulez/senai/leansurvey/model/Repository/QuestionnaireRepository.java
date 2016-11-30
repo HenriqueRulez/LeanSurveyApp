@@ -15,7 +15,7 @@ import com.google.gson.Gson;
  */
 
 /// FORNECEDOR
-public class QuestionnairRepository
+public class QuestionnaireRepository
 {
     static Gson gson = new Gson();
 
