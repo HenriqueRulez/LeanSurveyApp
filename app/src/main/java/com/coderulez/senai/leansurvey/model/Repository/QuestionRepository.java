@@ -13,11 +13,12 @@ import okhttp3.Response;
  * Created by SENAI on 30/11/2016.
  */
 
-public class QuestionRepository {
+public class QuestionRepository
+{
 
     static Gson gson = new Gson();
 
-    public static void List(final ICallback<Question> cb){
+    public static void List(final long questionnaireId, final ICallback<Question[]> cb){
 
         new Thread(new Runnable() {
             @Override
@@ -25,7 +26,7 @@ public class QuestionRepository {
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://xabuco.com.br/Senai-LeanSurvey/question/")
+                        .url("http://xabuco.com.br/Senai-LeanSurvey/questionnaire/" + questionnaireId + "/question/")
                         .get()
                         .build();
 
@@ -38,17 +39,16 @@ public class QuestionRepository {
                         cb.Callback(null, body);
                     }else{
 
-                        Question question = gson.fromJson(body, Question.class);
-                        cb.Callback(question,null);
+                        Question[] questions = gson.fromJson(body, Question[].class);
+                        cb.Callback(questions, null);
 
                     }
-
-                }catch (IOException e)
+                }
+                catch (IOException e)
                 {
                     cb.Callback(null, e.toString());
                     e.printStackTrace();
                 }
-
             }
         }).start();
 

@@ -6,9 +6,12 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.content.Intent;
 
 import com.coderulez.senai.leansurvey.R;
+import com.coderulez.senai.leansurvey.activity.AnswerActivity;
 import com.coderulez.senai.leansurvey.activity.dummy.DummyContent.DummyItem;
 import com.coderulez.senai.leansurvey.adapter.AdapterQuestionnaire;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
@@ -23,7 +26,7 @@ import android.widget.Toast;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class QuestionairesFragment extends Fragment {
+public class QuestionairesFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -73,7 +76,7 @@ public class QuestionairesFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.myListView);
         this.adapter = new AdapterQuestionnaire(this.getContext());
         listView.setAdapter(adapter);
-
+        listView.setOnItemClickListener(this);
         return view;
     }
 
@@ -122,6 +125,14 @@ public class QuestionairesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Intent intent = new Intent(this.getActivity(), AnswerActivity.class);
+        intent.putExtra("questionnaire", ((Questionnaire)adapter.getItem(position)).getId());
+        this.getActivity().startActivity(intent);
     }
 
     /**

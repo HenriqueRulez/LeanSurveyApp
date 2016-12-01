@@ -13,3 +13,9 @@ Repositório (UM PRA CADA MODEL QUE PRECISAR) --
 chumbar validação
 arrumar card? (deixar mais gay)
 
+
+
+#######################################################################
+ajustar o job do thiago /questionnaire/:id/questions
+receber as questions e visualiza-las
+ao clicar em next, aumentar o questionIndex e chamar refresh para a proxima question

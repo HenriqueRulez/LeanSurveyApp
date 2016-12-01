@@ -19,6 +19,44 @@ public class QuestionnaireRepository
 {
     static Gson gson = new Gson();
 
+    public static void Get(final long id, final ICallback<Questionnaire> cb)
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("http://xabuco.com.br/Senai-LeanSurvey/questionnaire/" + id)
+                        .get()
+                        .build();
+
+                try
+                {
+                    Response resp = client.newCall(request).execute();
+                    int code = resp.code();
+                    String body = resp.body().string();
+
+                    if (code != 200)
+                    {
+                        cb.Callback(null, body);
+                    }
+                    else
+                    {
+                        Questionnaire[] questionnaire = gson.fromJson(body, Questionnaire[].class);
+                        cb.Callback(questionnaire[0], null);
+                    }
+                }
+                catch (IOException e)
+                {
+                    cb.Callback(null, e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
     public static void List(final ICallback<Questionnaire[]> cb)
     {
         new Thread(new Runnable() {

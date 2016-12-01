@@ -19,12 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AnswerActivity" />
         <activity android:name=".activity.OpcoesActivity" />
         <activity android:name=".activity.InicioActivity" />
         <activity android:name=".activity.AjudaActivity" />
-        <activity android:name=".activity.QuestaoITActivity" />
-        <activity android:name=".activity.QuestaoCBActivity" />
-        <activity android:name=".activity.QuestionRBActivity" />
         <activity
             android:name=".activity.NavigationDrawer">
 
