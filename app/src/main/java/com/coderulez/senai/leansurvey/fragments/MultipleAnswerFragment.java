@@ -8,8 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ListView;
 
 import com.coderulez.senai.leansurvey.R;
+import com.coderulez.senai.leansurvey.adapter.AdapterQuestionCB;
+import com.coderulez.senai.leansurvey.model.Option;
+import com.coderulez.senai.leansurvey.model.Question;
+import com.coderulez.senai.leansurvey.model.Repository.ICallback;
+import com.coderulez.senai.leansurvey.model.Repository.QuestionRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +23,7 @@ import com.coderulez.senai.leansurvey.R;
  * {@link MultipleAnswerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class MultipleAnswerFragment extends Fragment {
+public class MultipleAnswerFragment extends Fragment implements IAnswerFragment{
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,6 +60,29 @@ public class MultipleAnswerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void Refresh(Question q) {
+        ((TextView) getView().findViewById(R.id.txtTextTitleCB)).setText(q.getTitle());
+        ((TextView) getView().findViewById(R.id.txtTextDescriptionCB)).setText(q.getDescription());
+
+        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
+            @Override
+            public void Callback(final Option[] back, String error) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ListView)getView().findViewById(R.id.listView)).setAdapter(new AdapterQuestionCB(getActivity().getApplicationContext(), back));
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
     }
 
     /**

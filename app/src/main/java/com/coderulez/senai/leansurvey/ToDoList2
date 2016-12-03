@@ -3,7 +3,7 @@ Finalizar a documentação PARA QUARTA
 @API
 Enterprise - insert
 Buscar Questionnaire por id da empresa
-enterprise/id/questionnarie
+enterprise/questionnaire/id
 questionnaire/id/question
 question/id/answerquestion
 
@@ -16,6 +16,7 @@ arrumar card? (deixar mais gay)
 
 
 #######################################################################
-ajustar o job do thiago /questionnaire/:id/questions
+ajustar o job do thiago /questionnaire/:id/questions kkkkkkkkkkkkkkkkkkkkkkkkkk
 receber as questions e visualiza-las
 ao clicar em next, aumentar o questionIndex e chamar refresh para a proxima question
+salvar e mandar as respostas

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.coderulez.senai.leansurvey.R;
+import com.coderulez.senai.leansurvey.model.Question;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +18,7 @@ import com.coderulez.senai.leansurvey.R;
  * {@link ChoiceAnswerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class ChoiceAnswerFragment extends Fragment {
+public class ChoiceAnswerFragment extends Fragment implements IAnswerFragment {
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,6 +55,16 @@ public class ChoiceAnswerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void Refresh(Question q) {
+
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
     }
 
     /**

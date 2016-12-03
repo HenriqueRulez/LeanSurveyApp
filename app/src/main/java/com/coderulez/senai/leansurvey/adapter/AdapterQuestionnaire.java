@@ -25,9 +25,9 @@ public class AdapterQuestionnaire extends BaseAdapter
     LayoutInflater inflater;
 
 
-    public AdapterQuestionnaire( Context context)
+    public AdapterQuestionnaire(Context context)
     {
-        this.dataSource = new ArrayList<Questionnaire>();
+        this.dataSource = new ArrayList<>();
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -79,4 +79,5 @@ public class AdapterQuestionnaire extends BaseAdapter
         }
         this.notifyDataSetChanged();
     }
+
 }

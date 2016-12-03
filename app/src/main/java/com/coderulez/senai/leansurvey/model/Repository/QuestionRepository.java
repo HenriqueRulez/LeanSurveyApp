@@ -1,5 +1,6 @@
 package com.coderulez.senai.leansurvey.model.Repository;
 
+import com.coderulez.senai.leansurvey.model.Option;
 import com.google.gson.Gson;
 import com.coderulez.senai.leansurvey.model.Question;
 
@@ -54,4 +55,38 @@ public class QuestionRepository
 
     }
 
+    public static void GetOptions(final long questionId, final ICallback<Option[]> cb)
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("http://xabuco.com.br/Senai-LeanSurvey/question/" + questionId + "/options")
+                        .get()
+                        .build();
+
+                try {
+                    Response resp = client.newCall(request).execute();
+                    int code = resp.code();
+                    String body = resp.body().string();
+
+                    if (code != 200){
+                        cb.Callback(null, body);
+                    }else{
+
+                        Option[] options = gson.fromJson(body, Option[].class);
+                        cb.Callback(options, null);
+
+                    }
+                }
+                catch (IOException e)
+                {
+                    cb.Callback(null, e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

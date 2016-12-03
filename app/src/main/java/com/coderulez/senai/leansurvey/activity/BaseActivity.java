@@ -39,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.nav_questionario:
-                        Intent anIntent = new Intent(getApplicationContext(), InicioActivity.class);
+                        Intent anIntent = new Intent(getApplicationContext(), QuestionnairesActivity.class);
                         startActivity(anIntent);
                         drawerLayout.closeDrawers();
                         break;

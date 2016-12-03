@@ -30,7 +30,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 
 
-public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuestionairesFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener{
+public class QuestionnairesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, QuestionairesFragment.OnListFragmentInteractionListener, ErrorFragment.OnFragmentInteractionListener{
 
     FrameLayout content;
     DrawerLayout drawerLayout;

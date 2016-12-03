@@ -106,9 +106,10 @@ public class QuestionairesFragment extends Fragment implements AdapterView.OnIte
                 {
                     @Override
                     public void run() {
+
                         if (error != null)
                         {
-                            Toast.makeText(that.getContext(), error, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(that.getContext(), error, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -133,6 +134,7 @@ public class QuestionairesFragment extends Fragment implements AdapterView.OnIte
         Intent intent = new Intent(this.getActivity(), AnswerActivity.class);
         intent.putExtra("questionnaire", ((Questionnaire)adapter.getItem(position)).getId());
         this.getActivity().startActivity(intent);
+
     }
 
     /**

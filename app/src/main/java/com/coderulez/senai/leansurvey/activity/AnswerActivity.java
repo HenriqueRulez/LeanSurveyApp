@@ -1,5 +1,6 @@
 package com.coderulez.senai.leansurvey.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.widget.Toast;
 
 import com.coderulez.senai.leansurvey.R;
 import com.coderulez.senai.leansurvey.fragments.ChoiceAnswerFragment;
+import com.coderulez.senai.leansurvey.fragments.IAnswerFragment;
 import com.coderulez.senai.leansurvey.fragments.MultipleAnswerFragment;
 import com.coderulez.senai.leansurvey.fragments.TextAnswerFragment;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
@@ -21,8 +23,8 @@ import android.app.Fragment;
  * Created by SENAI on 01/12/2016.
  */
 
-public class AnswerActivity extends AppCompatActivity
-{
+public class AnswerActivity extends AppCompatActivity implements MultipleAnswerFragment.OnFragmentInteractionListener, ChoiceAnswerFragment.OnFragmentInteractionListener, TextAnswerFragment.OnFragmentInteractionListener {
+
     long questionnaireId = 0;
     Questionnaire questionnaire;
     Question[] questions;
@@ -31,7 +33,10 @@ public class AnswerActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_answer);
 
         questionnaireId = getIntent().getExtras().getLong("questionnaire");
 
@@ -53,7 +58,7 @@ public class AnswerActivity extends AppCompatActivity
                     public void Callback(Question[] back, String error) {
                         if (back == null)
                         {
-                            Toast.makeText(that, error, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(that, error, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -70,19 +75,23 @@ public class AnswerActivity extends AppCompatActivity
     public void Refresh()
     {
         Question question = this.questions[questionIndex];
-        Fragment frag = GetFragmentFor(question);
+        IAnswerFragment frag = GetFragmentFor(question);
+        showFragment(frag);
+        frag.Refresh(questions[questionIndex]);
     }
 
-    private void showFragment(Fragment fragment)
+
+
+    private void showFragment(IAnswerFragment fragment)
     {
         this.getFragmentManager().beginTransaction()
-                .replace(R.id.content_question, fragment)
+                .replace(R.id.content_question, fragment.getFragment())
                 .commit();
     }
 
-    private Fragment GetFragmentFor(Question question)
+    private IAnswerFragment GetFragmentFor(Question question)
     {
-        Fragment result;
+        IAnswerFragment result;
         switch (question.getQuestiontype().getId().intValue())
         {
             case 3: //radioButton
@@ -91,10 +100,20 @@ public class AnswerActivity extends AppCompatActivity
             case 2: //checkbutton
                 result = new MultipleAnswerFragment();
                 break;
-            default:
+            case 1:
                 result = new TextAnswerFragment();
                 break;
+            default:
+                result = null;
+                break;
         }
-        return  result;
+        return result;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+
+
     }
 }

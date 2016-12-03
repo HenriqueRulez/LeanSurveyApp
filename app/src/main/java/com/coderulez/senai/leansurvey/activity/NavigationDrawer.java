@@ -2,9 +2,6 @@ package com.coderulez.senai.leansurvey.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -76,7 +73,7 @@ public class NavigationDrawer extends AppCompatActivity
 
         if (id == R.id.nav_questionario) {
             Intent intentgotoForm = new Intent(NavigationDrawer.this,
-                    InicioActivity.class);
+                    QuestionnairesActivity.class);
         } else if (id == R.id.nav_listaresposta) {
             Intent intentgotoForm = new Intent(NavigationDrawer.this,
                     OpcoesActivity.class);
