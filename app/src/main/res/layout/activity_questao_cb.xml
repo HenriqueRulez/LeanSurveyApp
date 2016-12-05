@@ -37,11 +37,17 @@
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="96dp"
-        tools:layout_editor_absoluteX="107dp"
-        android:id="@+id/txtTextDescriptionCB" />
+        android:layout_width="209dp"
+        android:layout_height="37dp"
+        android:id="@+id/txtTextDescriptionCB"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtTextTitleCB"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

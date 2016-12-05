@@ -8,9 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ListView;
 
 import com.coderulez.senai.leansurvey.R;
+import com.coderulez.senai.leansurvey.adapter.AdapterQuestionCB;
+import com.coderulez.senai.leansurvey.adapter.AdapterQuestionRB;
+import com.coderulez.senai.leansurvey.model.Option;
 import com.coderulez.senai.leansurvey.model.Question;
+import com.coderulez.senai.leansurvey.model.Repository.ICallback;
+import com.coderulez.senai.leansurvey.model.Repository.QuestionRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +65,20 @@ public class ChoiceAnswerFragment extends Fragment implements IAnswerFragment {
 
     @Override
     public void Refresh(Question q) {
+        ((TextView) getView().findViewById(R.id.txtTitleRB)).setText(q.getTitle());
+        ((TextView) getView().findViewById(R.id.txtTextDescriptionRB)).setText(q.getDescription());
 
+        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
+            @Override
+            public void Callback(final Option[] back, String error) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ListView)getView().findViewById(R.id.listViewRB)).setAdapter(new AdapterQuestionRB(getActivity().getApplicationContext(), back));
+                    }
+                });
+            }
+        });
     }
 
     @Override
