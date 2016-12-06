@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import com.coderulez.senai.leansurvey.R;
 import com.coderulez.senai.leansurvey.model.Option;
 
+
+//Sobe pelo amor de deus, essa desgraça não sobe pro git eu vou me matar velho ta tudo mudado e aparece clear eu me odeio
 /**
  * Created by SENAI on 03/12/2016.
  */
