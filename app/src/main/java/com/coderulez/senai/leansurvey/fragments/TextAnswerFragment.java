@@ -30,7 +30,15 @@ public class TextAnswerFragment extends Fragment implements IAnswerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return  inflater.inflate(R.layout.activity_questao_it, container, false);
+        View result = inflater.inflate(R.layout.activity_questao_it, container, false);
+        if(_shouldRefresh)
+        {
+            _shouldRefresh = false;
+
+            ((TextView)result.findViewById(R.id.txtTextTitle)).setText(_questionToRefresh.getTitle());
+            ((TextView)result.findViewById(R.id.txtTextDescription)).setText(_questionToRefresh.getTitle());
+        }
+        return  result;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -57,10 +65,22 @@ public class TextAnswerFragment extends Fragment implements IAnswerFragment {
         mListener = null;
     }
 
+    private boolean _shouldRefresh;
+    private Question _questionToRefresh;
     @Override
     public void Refresh(Question q) {
-        ((TextView) getView().findViewById(R.id.txtTextTitle)).setText(q.getTitle());
-        ((TextView) getView().findViewById(R.id.txtTextDescription)).setText(q.getDescription());
+        View view = this.getView();
+        if (view != null)
+        {
+            ((TextView)view.findViewById(R.id.txtTextTitle)).setText(q.getTitle());
+            ((TextView)view.findViewById(R.id.txtTextDescription)).setText(q.getDescription());
+        }
+        else
+        {
+            _questionToRefresh = q;
+            _shouldRefresh = true;
+
+        }
     }
 
     @Override

@@ -51,19 +51,29 @@ public class AnswerActivity extends AppCompatActivity implements MultipleAnswerF
 
         QuestionnaireRepository.Get(questionnaireId, new ICallback<Questionnaire>() {
             @Override
-            public void Callback(Questionnaire back, String error) {
+            public void Callback(final Questionnaire back, String error) {
                 questionnaire = back;
                 questionnaire.getQuestions(new ICallback<Question[]>() {
                     @Override
-                    public void Callback(Question[] back, String error) {
+                    public void Callback(final Question[] questions, String error) {
                         if (back == null)
                         {
                             // Toast.makeText(that, error, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            questions = back;
-                            Refresh();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    AnswerActivity.this.questions = questions;
+                                    Refresh();
+
+                                }
+                            });
+
+
                         }
                     }
                 });
@@ -74,10 +84,17 @@ public class AnswerActivity extends AppCompatActivity implements MultipleAnswerF
 
     public void Refresh()
     {
-        Question question = this.questions[questionIndex];
-        IAnswerFragment frag = GetFragmentFor(question);
-        showFragment(frag);
-        frag.Refresh(questions[questionIndex]);
+
+        if(questions.length != 0){
+
+            Question question = this.questions[questionIndex];
+            IAnswerFragment frag = GetFragmentFor(question);
+            showFragment(frag);
+            frag.Refresh(questions[questionIndex]);
+        }
+
+
+
     }
 
 
@@ -97,10 +114,10 @@ public class AnswerActivity extends AppCompatActivity implements MultipleAnswerF
             case 3: //radioButton
                 result = new ChoiceAnswerFragment();
                 break;
-            case 2: //checkbutton
+            case 2: //checkButton
                 result = new MultipleAnswerFragment();
                 break;
-            case 1:
+            case 1: //Text
                 result = new TextAnswerFragment();
                 break;
             default:

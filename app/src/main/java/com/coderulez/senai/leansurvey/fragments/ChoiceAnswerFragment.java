@@ -36,7 +36,20 @@ public class ChoiceAnswerFragment extends Fragment implements IAnswerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.activity_question_rb, container, false);
+        //return inflater.inflate(R.layout.activity_question_rb, container, false);
+
+        View result = inflater.inflate(R.layout.activity_question_rb, container, false);
+
+        if(_shouldRefresh){
+
+            _shouldRefresh = false;
+
+            ((TextView)result.findViewById(R.id.txtTitleRB)).setText(_questionToRefresh.getTitle());
+            ((TextView)result.findViewById(R.id.txtTextDescriptionRB)).setText(_questionToRefresh.getTitle());
+
+        }
+
+        return result;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -63,22 +76,40 @@ public class ChoiceAnswerFragment extends Fragment implements IAnswerFragment {
         mListener = null;
     }
 
+
+    private boolean _shouldRefresh;
+    private Question _questionToRefresh;
+
     @Override
     public void Refresh(Question q) {
-        ((TextView) getView().findViewById(R.id.txtTitleRB)).setText(q.getTitle());
-        ((TextView) getView().findViewById(R.id.txtTextDescriptionRB)).setText(q.getDescription());
 
-        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
-            @Override
-            public void Callback(final Option[] back, String error) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((ListView)getView().findViewById(R.id.listViewRB)).setAdapter(new AdapterQuestionRB(getActivity().getApplicationContext(), back));
-                    }
-                });
-            }
-        });
+        View view = this.getView();
+        if(view != null){
+
+            ((TextView)view.findViewById(R.id.txtTitleRB)).setText(q.getTitle());
+            ((TextView)view.findViewById(R.id.txtTextDescriptionRB)).setText(q.getTitle());
+
+        }else{
+            _questionToRefresh = q;
+            _shouldRefresh = true;
+        }
+
+
+
+//        ((TextView) getView().findViewById(R.id.txtTitleRB)).setText(q.getTitle());
+//          ((TextView) getView().findViewById(R.id.txtTextDescriptionRB)).setText(q.getDescription());
+//
+//        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
+//            @Override
+//            public void Callback(final Option[] back, String error) {
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ((ListView)getView().findViewById(R.id.listViewRB)).setAdapter(new AdapterQuestionRB(getActivity().getApplicationContext(), back));
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override
