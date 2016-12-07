@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.coderulez.senai.leansurvey.R;
-import com.coderulez.senai.leansurvey.adapter.AdapterQuestionCB;
+import com.coderulez.senai.leansurvey.adapter.AdapterQuestionCuzao;
+import com.coderulez.senai.leansurvey.adapter.AdapterQuestionRB;
+import com.coderulez.senai.leansurvey.model.Answerquestion;
 import com.coderulez.senai.leansurvey.model.Option;
 import com.coderulez.senai.leansurvey.model.Question;
 import com.coderulez.senai.leansurvey.model.Repository.ICallback;
@@ -45,6 +48,7 @@ public class MultipleAnswerFragment extends Fragment implements IAnswerFragment{
 
             ((TextView)result.findViewById(R.id.txtTextTitleCB)).setText(_questionToRefresh.getTitle());
             ((TextView)result.findViewById(R.id.txtTextDescriptionCB)).setText(_questionToRefresh.getTitle());
+            refreshOptions(result, _questionToRefresh);
 
         }
 
@@ -88,6 +92,7 @@ public class MultipleAnswerFragment extends Fragment implements IAnswerFragment{
         {
             ((TextView)view.findViewById(R.id.txtTextTitleCB)).setText(q.getTitle());
             ((TextView)view.findViewById(R.id.txtTextDescriptionCB)).setText(q.getDescription());
+            refreshOptions(view, q);
         }
         else
         {
@@ -95,21 +100,43 @@ public class MultipleAnswerFragment extends Fragment implements IAnswerFragment{
             _shouldRefresh = true;
 
         }
+    }
 
-//        ((TextView) getView().findViewById(R.id.txtTextTitleCB)).setText(q.getTitle());
-//        ((TextView) getView().findViewById(R.id.txtTextDescriptionCB)).setText(q.getDescription());
-//
-//        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
-//            @Override
-//            public void Callback(final Option[] back, String error) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ((ListView)getView().findViewById(R.id.listView)).setAdapter(new AdapterQuestionCB(getActivity().getApplicationContext(), back));
-//                    }
-//                });
-//            }
-//        });
+    private void refreshOptions(View v, Question q)
+    {
+        if (v == null) v = this.getView();
+
+        QuestionRepository.GetOptions(q.getId(), new ICallback<Option[]>() {
+            @Override
+            public void Callback(final Option[] back, final String error) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        if (error != null)
+                        {
+                            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                        }
+                        else if(back != null)
+                        {
+                            ListView lv =((ListView)getView().findViewById(R.id.listViewCB));
+                            lv.setAdapter(new AdapterQuestionCuzao(getActivity().getApplicationContext(), back, true, lv));
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Ouve um erro no servidor", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Answerquestion getAnswer() {
+        Answerquestion result = new Answerquestion();
+
+        return result;
     }
 
     @Override

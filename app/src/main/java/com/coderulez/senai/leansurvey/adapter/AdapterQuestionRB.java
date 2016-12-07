@@ -17,9 +17,8 @@ import com.coderulez.senai.leansurvey.model.Option;
  * Created by SENAI on 03/12/2016.
  */
 
-public class AdapterQuestionRB extends BaseAdapter{
-
-
+public class AdapterQuestionRB extends BaseAdapter
+{
     Option[] dataSource;
     LayoutInflater inflater;
 

@@ -9,6 +9,16 @@ public class Option
     int ordem;
     String description;
 
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    boolean selected;
+
     public String getDescription() {
         return description;
     }

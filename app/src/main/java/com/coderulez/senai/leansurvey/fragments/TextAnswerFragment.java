@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import com.coderulez.senai.leansurvey.R;
+import com.coderulez.senai.leansurvey.model.Answerquestion;
 import com.coderulez.senai.leansurvey.model.Question;
 
 /**
@@ -21,7 +23,7 @@ import com.coderulez.senai.leansurvey.model.Question;
 public class TextAnswerFragment extends Fragment implements IAnswerFragment {
 
     private OnFragmentInteractionListener mListener;
-
+    EditText etAnswer;
     public TextAnswerFragment() {
         // Required empty public constructor
     }
@@ -31,6 +33,8 @@ public class TextAnswerFragment extends Fragment implements IAnswerFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View result = inflater.inflate(R.layout.activity_questao_it, container, false);
+        etAnswer = (EditText) result.findViewById(R.id.editTextBox);
+
         if(_shouldRefresh)
         {
             _shouldRefresh = false;
@@ -81,6 +85,17 @@ public class TextAnswerFragment extends Fragment implements IAnswerFragment {
             _shouldRefresh = true;
 
         }
+    }
+
+    @Override
+    public Answerquestion getAnswer()
+    {
+        String text = etAnswer.getText().toString();
+        if (text.isEmpty()) return null;
+
+        Answerquestion answer = new Answerquestion();
+        answer.setAnswerString(text);
+        return  answer;
     }
 
     @Override
