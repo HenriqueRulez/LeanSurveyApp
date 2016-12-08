@@ -19,6 +19,7 @@
     </FrameLayout>
 
     <Button
+
         android:text="Próxima"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,9 +27,12 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/questao_anterior"
-        app:layout_constraintBottom_toBottomOf="@+id/questao_anterior" />
+        app:layout_constraintBottom_toBottomOf="@+id/questao_anterior"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@android:color/background_dark" />
 
     <Button
+
         android:text="Anterior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,5 +40,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@android:color/background_dark" />
 </android.support.constraint.ConstraintLayout>

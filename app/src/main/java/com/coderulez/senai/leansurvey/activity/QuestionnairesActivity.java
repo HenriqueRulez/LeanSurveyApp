@@ -23,7 +23,7 @@ import com.coderulez.senai.leansurvey.fragments.QuestionairesFragment;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
 import com.coderulez.senai.leansurvey.R;
 import com.coderulez.senai.leansurvey.util.QuestionnaireRest;
-
+import 	android.view.View;
 
 import java.util.List;
 import android.app.Fragment;
@@ -67,6 +67,7 @@ public class QuestionnairesActivity extends AppCompatActivity implements Navigat
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
         Fragment fragment;
+        View view;
         switch (item.getItemId()) {
             case R.id.nav_questionario:
 
