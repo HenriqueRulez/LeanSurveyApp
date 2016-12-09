@@ -24,7 +24,8 @@ public class InterviewerRepository extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.3.52:80/Senai-LeanSurvey/interviewer/" + id)
+                        .url("xabuco.com.br/Senai-LeanSurvey/interviewer/" + id)
+                       // .url("http://192.168.3.52:80/Senai-LeanSurvey/interviewer/" + id)
                         .get()
                         .build();
                 try {

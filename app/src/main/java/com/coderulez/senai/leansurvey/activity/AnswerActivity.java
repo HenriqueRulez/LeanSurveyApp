@@ -1,5 +1,6 @@
 package com.coderulez.senai.leansurvey.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -150,11 +151,15 @@ public class AnswerActivity extends AppCompatActivity implements MultipleAnswerF
             //Gravar resposta e ir para a proxima questao
             if(currentFragment == null)
             {
-                Toast.makeText(this, "Não há uma questão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Não há uma questão ", Toast.LENGTH_SHORT).show();
             }
             else if(questionIndex + 1 == this.questions.length)
             {
-                Toast.makeText(this, "Não hã próxima questão", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(this, QuestionnairesActivity.class);
+
+                Toast.makeText(this, "Questionário concluído com sucesso!", Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
             }
             else
             {

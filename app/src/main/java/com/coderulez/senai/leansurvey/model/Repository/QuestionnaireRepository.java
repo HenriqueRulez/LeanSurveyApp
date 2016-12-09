@@ -27,7 +27,8 @@ public class QuestionnaireRepository
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.3.52:80/Senai-LeanSurvey/questionnaire/" + id)
+                        .url("http://www.xabuco.com.br/Senai-LeanSurvey/questionnaire/" + id)
+                        //.url("http://192.168.3.52:80/Senai-LeanSurvey/questionnaire/" + id)
                         .get()
                         .build();
 
@@ -67,7 +68,8 @@ public class QuestionnaireRepository
 
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.3.52:80/Senai-LeanSurvey/questionnaire/")
+                        .url("http://www.xabuco.com.br/Senai-LeanSurvey/questionnaire/")
+                       // .url("http://192.168.3.52:80/Senai-LeanSurvey/questionnaire/")
                         .get()
                         .build();
 
