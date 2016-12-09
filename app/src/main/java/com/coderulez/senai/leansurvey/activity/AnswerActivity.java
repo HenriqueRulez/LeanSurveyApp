@@ -154,7 +154,7 @@ public class AnswerActivity extends AppCompatActivity implements MultipleAnswerF
             }
             else if(questionIndex + 1 == this.questions.length)
             {
-                Toast.makeText(this, "Não hã próxima qiestão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Não hã próxima questão", Toast.LENGTH_SHORT).show();
             }
             else
             {

@@ -27,7 +27,7 @@ public class QuestionRepository
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("http://xabuco.com.br/Senai-LeanSurvey/questionnaire/" + questionnaireId + "/question/")
+                        .url("http://192.168.3.52:80/Senai-LeanSurvey/questionnaire/" + questionnaireId + "/question/")
                         .get()
                         .build();
 
@@ -60,42 +60,35 @@ public class QuestionRepository
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Option[] options = new Option[30];
-                for (int i = 0; i < options.length; i++)
+
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("http://192.168.3.52/Senai-LeanSurvey/question/" + questionId + "/optionquestion")
+//                            .url("http://xabuco.com.br/Senai-LeanSurvey/question/" + questionId + "/options")
+                    .get()
+                    .build();
+
+            try {
+                Response resp = client.newCall(request).execute();
+                int code = resp.code();
+                String body = resp.body().string();
+
+                if (code != 200) {
+                    cb.Callback(null, body);
+                }
+                else
                 {
-                    Option op = new Option();
-                    op.setDescription("Opcao " + i);
-                    op.setOrdem(i);
-                    options[i] = op;
+                    Option[] options = gson.fromJson(body, Option[].class);
+
+                    cb.Callback(options, null);
+
                 }
-                cb.Callback(options, null);
-                if (false) {
-                    OkHttpClient client = new OkHttpClient();
+            } catch (IOException e) {
+                cb.Callback(null, e.toString());
+                e.printStackTrace();
+            }
 
-                    Request request = new Request.Builder()
-                            .url("http://192.168.3.28:8080/Senai-LeanSurvey/question/" + questionId + "/options")
-                            //.url("http://xabuco.com.br/Senai-LeanSurvey/question/" + questionId + "/options")
-                            .get()
-                            .build();
-
-                    try {
-                        Response resp = client.newCall(request).execute();
-                        int code = resp.code();
-                        String body = resp.body().string();
-
-                        if (code != 200) {
-                            cb.Callback(null, body);
-                        } else {
-//                        Option[] options = gson.fromJson(body, Option[].class);
-
-                            cb.Callback(options, null);
-
-                        }
-                    } catch (IOException e) {
-                        cb.Callback(null, e.toString());
-                        e.printStackTrace();
-                    }
-                }
             }
         }).start();
     }
