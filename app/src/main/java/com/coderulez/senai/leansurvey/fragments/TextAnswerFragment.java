@@ -40,7 +40,7 @@ public class TextAnswerFragment extends Fragment implements IAnswerFragment {
             _shouldRefresh = false;
 
             ((TextView)result.findViewById(R.id.txtTextTitle)).setText(_questionToRefresh.getTitle());
-            ((TextView)result.findViewById(R.id.txtTextDescription)).setText(_questionToRefresh.getTitle());
+            ((TextView)result.findViewById(R.id.txtTextDescription)).setText(_questionToRefresh.getDescription());
         }
         return  result;
     }

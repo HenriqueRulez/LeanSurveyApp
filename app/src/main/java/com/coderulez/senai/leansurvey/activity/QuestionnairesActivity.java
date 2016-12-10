@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.coderulez.senai.leansurvey.activity.dummy.DummyContent;
+import com.coderulez.senai.leansurvey.fragments.AjudaFragment;
 import com.coderulez.senai.leansurvey.fragments.ErrorFragment;
 import com.coderulez.senai.leansurvey.fragments.QuestionairesFragment;
 import com.coderulez.senai.leansurvey.model.Questionnaire;
@@ -74,7 +75,7 @@ public class QuestionnairesActivity extends AppCompatActivity implements Navigat
                 fragment = new QuestionairesFragment();
                 break;
             case R.id.nav_listaresposta:
-                fragment = new ErrorFragment();
+                fragment = new AjudaFragment();
                 break;
             case R.id.nav_config:
                 fragment = new ErrorFragment();

@@ -1,14 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.coderulez.senai.leansurvey.fragments.ErrorFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ERROU!"
-        android:gravity="center_vertical|center_horizontal" />
 
-</FrameLayout>
+    <TextView
+        android:text="Em desenvolvimento."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:layout_marginTop="64dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        android:layout_marginBottom="8dp" />
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="83dp"
+        app:srcCompat="@drawable/ic_build_black_24dp"
+        android:id="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="264dp" />
+
+</android.support.constraint.ConstraintLayout>
